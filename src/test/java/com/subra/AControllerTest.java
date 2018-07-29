@@ -1,5 +1,7 @@
 package com.subra;
 
+import java.util.ArrayList;
+
 import kafka.utils.threadsafe;
 
 import org.hamcrest.Matchers;
@@ -109,6 +111,35 @@ public class AControllerTest {
 				.andExpect(MockMvcResultMatchers.jsonPath("$.value", Matchers.is("chess posted")));
 		
 		System.out.println("--end testing 2a post");
+	}		
+
+	@Test
+	public void testPostJsonViaService() throws Exception {
+		
+		System.out.println("--begin testing 2b post via service");
+		//String json = "{ \"title\": \"Greeting\",  \"value\": \"Hello\" }";
+		String json = "{ \"title\": \"Greeting\" }";
+		ArrayList<Dummy> mockList = new ArrayList<>(); 
+		mockList.add(new Dummy("title", "Greeting"));
+		String jsonMockList = "[ { \"title\": \"Greeting\" } ]";
+		Mockito.when(helloService.getJsonHello()).thenReturn(mockList);
+		//Mockito.when(helloService.getJsonHello()).thenReturn(jsonMockList);
+		
+		mockmvc.perform(				
+				MockMvcRequestBuilders.post("/hello/postjsonByservice")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json)
+				
+				)
+				.andExpect(MockMvcResultMatchers.status().isOk())			
+				//.andExpect( MockMvcResultMatchers.jsonPath("$.title", "Greeting").exists());
+				//.andExpect(MockMvcResultMatchers.content())
+				.andExpect(MockMvcResultMatchers.content().json(jsonMockList, false))
+				;
+			
+				
+		
+		System.out.println("--end testing 2b post via service");
 	}
 		
 	

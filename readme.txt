@@ -12,7 +12,7 @@ C:\Temp\delete\del2\a>more data.txt
 "value": "536"
 }
 
-C:\Temp\delete\del2\a>curl -H "Accept: application/json"  -H "Content-Type: appication/json"  -X POST -d "@data.txt" "http://localhost:8080/mytest-spring/hello
+C:\Temp\delete\del2\a>curl -H "Accept: application/json"  -H "Content-Type: application/json"  -X POST -d "@data.txt" "http://localhost:8080/mytest-spring/hello
 /postjson"
 
 
@@ -21,3 +21,9 @@ result:
 
 ------
 3rd round --
+requtest to .../postjsonByservice and result
+
+
+C:\Temp\delete\del2\a>curl -H "Accept: application/json"  -H "Content-Type: application/json"  -X POST -d "@data.txt" "http://localhost:8080/mytest-spring/hello/postjsonByservice"
+[{"title":"title","value":"mno"},{"title":"value","value":"777"}]
+C:\Temp\delete\del2\a>
